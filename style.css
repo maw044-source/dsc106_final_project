@@ -81,3 +81,39 @@ h2 {
 .video-container { aspect-ratio: 16 / 9; background: #e8f2f4; }
 .video-container iframe { border: 0; width: 100%; height: 100%; }
 @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+
+.segmented-control {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  background: #e8edf2;
+  border: 1px solid #d4dce5;
+  border-radius: 10px;
+}
+
+.segmented-control .segment {
+  margin: 0;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #425466;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.segmented-control .segment:hover {
+  background: #dce4ed;
+}
+
+.segmented-control .segment.active {
+  background: #244c70;
+  color: white;
+}
+
+.segmented-control .segment:focus-visible {
+  outline: 3px solid #6ca8df;
+  outline-offset: 2px;
+}

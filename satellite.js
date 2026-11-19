@@ -45,19 +45,30 @@ const days = [272];
 let currentPerspective = perspectives[0];
 let currentDayIndex = 0;
 
-const select = d3.select("#perspective-select");
-const slider = d3.select("#day-slider");
+const buttonsContainer = d3.select("#perspective-buttons");const slider = d3.select("#day-slider");
 const dayLabel = d3.select("#day-label");
 const img = d3.select("#satellite-frame");
 const svg = d3.select("#overlay-svg");
 
-select
-  .selectAll("option")
+const buttons = buttonsContainer
+  .selectAll("button")
   .data(perspectives)
-  .enter()
-  .append("option")
-  .attr("value", d => d.id)
-  .text(d => d.label);
+  .join("button")
+  .attr("type", "button")
+  .attr("class", "segment")
+  .attr("aria-pressed", d => d.id === currentPerspective.id)
+  .classed("active", d => d.id === currentPerspective.id)
+  .text(d => d.label)
+  .on("click", function (event, d) {
+    currentPerspective = d;
+
+    buttons
+      .classed("active", p => p.id === d.id)
+      .attr("aria-pressed", p => p.id === d.id);
+
+    preloadPerspective(currentPerspective);
+    renderFrame();
+  });
 
 slider
   .attr("min", 0)
@@ -99,13 +110,6 @@ function renderFrame() {
   dayLabel.text(`Day ${day} (${currentDayIndex + 1} / ${days.length})`);
   updateOverlay(currentPerspective, day);
 }
-
-select.on("change", function () {
-  const selectedId = d3.select(this).property("value");
-  currentPerspective = perspectives.find(p => p.id === selectedId);
-  preloadPerspective(currentPerspective);
-  renderFrame();
-});
 
 slider.on("input", function () {
   currentDayIndex = +d3.select(this).property("value");

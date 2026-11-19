@@ -37,9 +37,13 @@
                 <svg id="overlay-svg"></svg>
             </div>
             <div class="controls">
-                <label for="perspective-select">Satellite Perspective:</label>
-                <select id="perspective-select"></select>
-
+                <span id="perspective-label">Satellite Perspective:</span>
+                    <div
+                        id="perspective-buttons"
+                        class="segmented-control"
+                        role="group"
+                        aria-labelledby="perspective-label"
+                        ></div>
                 <label for="day-slider">Day:</label>
                 <input id="day-slider" type="range" min="0" max="0" step="1" value="0" />
                 <span id="day-label"></span>
